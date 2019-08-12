@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Map, TileLayer, Popup, Marker } from "react-leaflet";
 
-export default class MapComponent  extends Component {
+export class MapComponent  extends Component {
   constructor() {
     super();
     this.state = {
@@ -10,13 +11,14 @@ export default class MapComponent  extends Component {
   }
 
   render() {
+    const { userLocation } = this.props
     return (
-      <Map  center={[51.505, -0.09]} maxZoom={19} zoom={13} className="map">
+      <Map  center={userLocation} zoom={13} className="map">
         <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           />
-          <Marker position={[51.505, -0.09]}>
+          <Marker position={userLocation}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
@@ -25,3 +27,9 @@ export default class MapComponent  extends Component {
     )
   }
 }
+
+export const mapStateToProps = (state) => ({
+  userLocation: state.userLocation
+})
+
+export default connect(mapStateToProps)(MapComponent)
