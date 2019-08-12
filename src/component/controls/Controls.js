@@ -10,9 +10,9 @@ export default class Controls extends Component {
 
   render() {
     return (
-      <div>
+      <section className="controls" >
         hello im the Controls
-      </div>
+      </section>
     )
   }
 }
